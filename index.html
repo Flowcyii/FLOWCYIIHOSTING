@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOWCYII HOSTING</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://pomf2.lain.la/f/ozfr0spo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .banner-title {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 2em;
+            text-align: center;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: transparent;
+            border-radius: 10px;
+        }
+
+        .category-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-bar button {
+            padding: 10px 20px;
+            font-size: 0.9em;
+            color: white;
+            background-color: #ff9800;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .category-bar button:hover {
+            background-color: #e68a00;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            font-size: 0.9em;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .banner {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .banner img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .product {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid white;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product h3 {
+            margin: 5px 0;
+            font-size: 1em;
+        }
+
+        .product p {
+            font-size: 0.9em;
+        }
+
+        .product button {
+            padding: 5px 10px;
+            font-size: 0.9em;
+            color: white;
+            background-color: #ff9800;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .product button:hover {
+            background-color: #e68a00;
+        }
+
+        .product button:active {
+            transform: scale(0.95);
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #e68a00;
+        }
+
+        .form-label {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="banner-title">𝐅𝐋𝐎𝐖𝐂𝐘𝐈𝐈 𝐇𝐎𝐒𝐓𝐈𝐍𝐆</div>
+    </header>
+
+    <div class="container">
+        <p style="text-align: center;">Menyediakan Kebutuhan Hosting Anda</p>
+        
+        <!-- Banner -->
+        <div class="banner">
+            <img src="https://pomf2.lain.la/f/dtfce4rz.jpg" alt="Promotional Banner">
+        </div>
+
+
+        <!-- Kategori Filter -->
+        <div class="category-bar">
+            <button onclick="filterProducts('All')">All</button>
+            <button onclick="filterProducts('Panel')">Panel</button>
+            <button onclick="filterProducts('Nokos')">Nokos</button>
+        </div>
+
+        <!-- Fitur Pencarian -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+        </div>
+
+        <!-- Daftar Produk -->
+        <div class="product-grid" id="productGrid">
+            <!-- Produk Panel 1GB - 9GB dan Unlimited -->
+            <div class="product" data-name="Panel 1GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 1GB">
+                <h3>Panel 1GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp1.000</p>
+                <button onclick="buyNow('Panel 1GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 2GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 2GB">
+                <h3>Panel 2GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp2.000</p>
+                <button onclick="buyNow('Panel 2GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 3GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 3GB">
+                <h3>Panel 3GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp3.000</p>
+                <button onclick="buyNow('Panel 3GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 4GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 4GB">
+                <h3>Panel 4GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp4.000</p>
+                <button onclick="buyNow('Panel 4GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 5GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 5GB">
+                <h3>Panel 5GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp5.000</p>
+                <button onclick="buyNow('Panel 5GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 6GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 6GB">
+                <h3>Panel 6GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp6.000</p>
+                <button onclick="buyNow('Panel 6GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 7GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 7GB">
+                <h3>Panel 7GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp7.000</p>
+                <button onclick="buyNow('Panel 7GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 8GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 8GB">
+                <h3>Panel 8GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp8.000</p>
+                <button onclick="buyNow('Panel 8GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Panel 9GB" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Panel 9GB">
+                <h3>Panel 9GB</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp9.000</p>
+                <button onclick="buyNow('Panel 9GB')">Beli Sekarang</button>
+            </div>
+            <div class="product" data-name="Unlimited" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Unlimited">
+                <h3>Unlimited</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp10.000</p>
+                <button onclick="buyNow('Unlimited')">Beli Sekarang</button>
+            </div>
+
+            <!-- Produk Reseller Panel -->
+            <div class="product" data-name="Reseller Panel" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Reseller Panel">
+                <h3>Reseller Panel (Permanen)</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp10.000</p>
+                <button onclick="buyNow('Reseller Panel')">Beli Sekarang</button>
+            </div>
+
+            <!-- Produk Admin Panel -->
+            <div class="product" data-name="Admin Panel" data-description="Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli." data-category="Panel">
+                <img src="https://i.postimg.cc/3w5JvLKj/20240910-080342.jpg" alt="Admin Panel">
+                <h3>Admin Panel (Permanen)</h3>
+                <p>Flowcyii Hosting memberikan garansi 1X. Jadi jangan ragu untuk membeli.</p>
+                <p>Rp15.000</p>
+                <button onclick="buyNow('Admin Panel')">Beli Sekarang</button>
+            </div>
+
+            <!-- Produk NOKOS WA INDO tanpa deskripsi -->
+            <div class="product" data-name="NOKOS WA INDO" data-category="Nokos">
+                <img src="https://pomf2.lain.la/f/vy83cst.jpg" alt="NOKOS WA INDO" style="width: 100px; height: 100px;">
+                <h3>NOKOS WA INDO</h3>
+                <p>Rp5.000</p>
+                <button onclick="buyNow('NOKOS WA INDO')">Beli Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk memfilter produk
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                if (category === 'All' || product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Fungsi untuk mencari produk
+        function searchProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            let hasResults = false;
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(input)) {
+                    product.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            if (!hasResults) {
+                document.getElementById('productGrid').innerHTML = '<p class="no-results">No results found.</p>';
+            }
+        }
+
+        // Fungsi untuk membeli produk
+        function buyNow(productName) {
+            const message = `Bang beli ${productName}`;
+            const whatsappLink = `https://wa.me/6288211386009?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappLink, '_blank');
+        }
+    </script>
+</body>
+  </html>
+  
